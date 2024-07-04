@@ -1,4 +1,4 @@
-# Use the official Godot headless build as a base image
+# Use the official Ubuntu 20.04 as a base image
 FROM ubuntu:20.04
 
 # Install dependencies
@@ -10,6 +10,12 @@ RUN apt-get update && apt-get install -y \
     libxrandr2 \
     libxi6 \
     && rm -rf /var/lib/apt/lists/*
+
+# Download and extract Godot headless version
+RUN wget https://downloads.tuxfamily.org/godotengine/4.2/Godot_v4.2-stable_linux_headless.64.zip \
+    && unzip Godot_v4.2-stable_linux_headless.64.zip \
+    && mv Godot_v4.2-stable_linux_headless.64 /godot \
+    && rm Godot_v4.2-stable_linux_headless.64.zip
 
 # Set up working directory
 WORKDIR /app
