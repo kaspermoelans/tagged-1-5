@@ -1,33 +1,28 @@
-# Use the official Ubuntu 20.04 as a base image
+# Use an official Ubuntu as a parent image
 FROM ubuntu:20.04
 
-# Install dependencies
+# Set environment variables
+ENV SERVER_PORT 2504
+
+# Install necessary packages
 RUN apt-get update && apt-get install -y \
+    libgl1-mesa-glx \
+    libpng16-16 \
     wget \
     unzip \
-    libxcursor1 \
-    libxinerama1 \
-    libxrandr2 \
-    libxi6 \
     && rm -rf /var/lib/apt/lists/*
 
-# Download and extract Godot headless version
-RUN wget https://downloads.tuxfamily.org/godotengine/4.2/Godot_v4.2-stable_linux_headless.64.zip \
-    && unzip Godot_v4.2-stable_linux_headless.64.zip \
-    && mv Godot_v4.2-stable_linux_headless.64 /godot \
-    && rm Godot_v4.2-stable_linux_headless.64.zip
-
-# Set up working directory
+# Create app directory
 WORKDIR /app
 
-# Copy your Godot project files into the Docker image
-COPY . /app
+# Copy the server files to the container
+COPY linux-server.x86_64 linux-server.pck linux-server.sh /app/
 
-# Make start script executable
-RUN chmod +x /app/linux-server.sh
+# Make the server script executable
+RUN chmod +x linux-server.x86_64 linux-server.sh
 
-# Expose the port that your server will run on
-EXPOSE 12345
+# Expose the port the server will run on
+EXPOSE $SERVER_PORT
 
 # Run the server
 CMD ["./linux-server.sh"]
