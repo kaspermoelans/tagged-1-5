@@ -19,7 +19,7 @@ WORKDIR /app
 COPY linux-server.x86_64 linux-server.pck linux-server.sh /app/
 
 # Make the server script executable
-RUN chmod +x linux-server.x86_64 linux-server.sh
+RUN chmod +x /app/linux-server.x86_64 /app/linux-server.sh
 
 # Expose the port the server will run on
 EXPOSE $SERVER_PORT
