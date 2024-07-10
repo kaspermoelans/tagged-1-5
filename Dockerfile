@@ -18,11 +18,14 @@ WORKDIR /app
 # Copy the server files to the container
 COPY linux-server.x86_64 linux-server.pck linux-server.sh /app/
 
-# Make the server script executable
+# Ensure files have correct permissions
 RUN chmod +x /app/linux-server.x86_64 /app/linux-server.sh
 
 # Expose the port the server will run on
 EXPOSE $SERVER_PORT
 
+# Add a debugging step to check file types and permissions
+RUN ls -l /app && file /app/linux-server.x86_64 && head -n 10 /app/linux-server.sh
+
 # Run the server
-CMD ["./linux-server.sh"]
+CMD ["sh", "-c", "./linux-server.sh"]
