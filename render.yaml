@@ -4,8 +4,8 @@ services:
     env: docker
     dockerfilePath: ./Dockerfile
     buildCommand: docker build -t my-image .
-    startCommand: |
-      docker run -it --rm --name my-container my-image &
+    dockerCommand: |
+      docker run -it --rm --name my-container my-image
       sleep 10  # Give it some time to start
       docker logs -f my-container
     envVars:
