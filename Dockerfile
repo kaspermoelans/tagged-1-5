@@ -2,7 +2,7 @@
 FROM ubuntu:20.04
 
 # Set environment variables
-ENV SERVER_PORT 2504
+ENV SERVER_PORT 8050
 
 # Install necessary packages
 RUN apt-get update && apt-get install -y \
