@@ -1,3 +1,5 @@
-#!/bin/sh
-base_path="$(dirname "$(realpath "$0")")"
-"$base_path/linux-server.x86_64" "$@"
+#!/bin/bash
+echo "Server IP:"
+echo $(hostname -I)
+# Start the server and redirect stdout and stderr to the console
+./linux-server.x86_64
